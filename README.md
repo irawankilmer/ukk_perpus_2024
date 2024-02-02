@@ -422,4 +422,5 @@ Jika berhasil, halaman akan diarahkan ke halaman login dengan menampilkan pesan 
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 #### - Tulis hanya code yang belum terdapat pada file yang akan di edit saja, jangan ditulis ulang semuanya
-[Lanjut ke step 2](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-2)
+[Kembali ke step 2](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-2) | 
+[Lanjut ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-4)
