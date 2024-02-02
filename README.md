@@ -201,7 +201,7 @@ Kalau berhasil, halaman dashboard/home akan terlihat seperti pada gambar berikut
 ![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-4/img/home.PNG)
 
 ### Tugas 2
-#### - Tambahkan menu buku di bagian sidebar, nilai 100
+#### - Pada gambar diatas hanya terdapat 2 menu, yaitu home dan logout, coba tambah menu buku, nilai 100
 
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
