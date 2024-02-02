@@ -206,5 +206,5 @@ Kalau berhasil, halaman dashboard/home akan terlihat seperti pada gambar berikut
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 #### - Tulis hanya code yang belum terdapat pada file yang akan di edit saja, jangan ditulis ulang semuanya
-[Kembali ke step 2](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-3) | 
+[Kembali ke step 3](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-3) | 
 [Lanjut ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-5)
