@@ -104,3 +104,4 @@ print_r($url->getUrl());
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 [Kembali ke step 1](https://github.com/irawankilmer/ukk_perpus_2024)
+[Lanjut ke step 3](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-3)
