@@ -1,5 +1,5 @@
 # ukk_perpus_2024
-## Step 5 PEMBUATAN DATABASE
+## Step 5 CRUD PETUGAS
 Pada langkah ini kita akan menambahkan fitur crud user tapi dikhususkan untuk role/hak akses petugas<br>
 Tapi sebelum ke pembuatan fitur tersebut, kita tambahkan terlebih dahulu data untuk Administratornya<br>
 Karena fitur crud user hanya untuk petugas, maka penambahan data Administrator harus dilakukan secara manual, cara nya ikuti langkah - langkah berikut ini
