@@ -3,7 +3,7 @@
 Pada langkah ini kita akan menambahkan struktur folder dan url, silhkan ikuti langkah - langkah berikut ini
 #### 1. Buat folder baru di dalam folder htdocs dengan nama ukk_perpus_2024
 #### 2. Masukan folder yang baru dibuat ke dalam text editor, boleh menggunakan sublime text, visual studio code atau yang lainnya
-#### 3. Buat 3 folder baru, masing - masing dengan nama App, Core dan Public
+#### 3. Buat 3 folder baru, masing - masing dengan nama app, core dan public
 #### 4. Didalam folder root/utama buat file baru dengan nama .htaccess, lalu tuliskan code berikut
 ```
 /.htaccess
@@ -18,9 +18,9 @@ Pada langkah ini kita akan menambahkan struktur folder dan url, silhkan ikuti la
 	RewriteRule (.*) public/index.php?page=$1 [L,QSA]
 </IfModule>
 ```
-#### 5. Kemudian, didalam folder Core buat 1 file baru dengan nama Url.php, lalu tuliskan code berikut
+#### 5. Kemudian, didalam folder core buat 1 file baru dengan nama Url.php, lalu tuliskan code berikut
 ````
-/Core/Url.php
+/core/Url.php
 <?php 
 class Url
 {
@@ -74,9 +74,9 @@ class Url
 	}
 }
 ````
-#### 6. Didalam folder App buat folder baru dengan nama Controllers, lalu didalamnya buat 1 file baru dengan nama HomeController.php dan ketikan code berikut.
+#### 6. Didalam folder app buat folder baru dengan nama controllers, lalu didalamnya buat 1 file baru dengan nama HomeController.php dan ketikan code berikut.
 ```
-/App/Controllers/HomeController.php
+/app/controllers/HomeController.php
 <?php 
 class HomeController 
 {
@@ -87,9 +87,9 @@ class HomeController
 }
 
 ```
-#### 6. Sekarang, didalam folder Public, buat satu file baru dengan nama index.php, kemudian tuliskan code berikut 
+#### 6. Sekarang, didalam folder public, buat satu file baru dengan nama index.php, kemudian tuliskan code berikut 
 ```
-/Public/index.php
+/public/index.php
 <?php 
 include '../core/Url.php';
 $url = new Url();
@@ -103,5 +103,5 @@ print_r($url->getUrl());
 
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
-[Kembali ke step 1](https://github.com/irawankilmer/ukk_perpus_2024)
+[Kembali ke step 1](https://github.com/irawankilmer/ukk_perpus_2024) | 
 [Lanjut ke step 3](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-3)
