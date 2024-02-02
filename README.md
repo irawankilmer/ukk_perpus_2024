@@ -67,3 +67,4 @@ CREATE TABLE peminjaman (
     FOREIGN KEY (BukuID) REFERENCES buku (BukuID) ON DELETE CASCADE
 );
 ```
+![Alt text](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/database%20design.PNG)
