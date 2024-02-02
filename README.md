@@ -1,6 +1,6 @@
 # ukk_perpus_2024
 ## Step 2 STRUKTUR FOLDER DAN URL
-Pada langkah ini kita akan menambahkan struktur folder dan url, silhkan ikuti langkah - langkah berikut ini
+Pada langkah ini kita akan menambahkan struktur folder dan url, silahkan ikuti langkah - langkah berikut ini
 #### 1. Buat folder baru di dalam folder htdocs dengan nama ukk_perpus_2024
 #### 2. Masukan folder yang baru dibuat ke dalam text editor, boleh menggunakan sublime text, visual studio code atau yang lainnya
 #### 3. Buat 3 folder baru, masing - masing dengan nama app, core dan public
