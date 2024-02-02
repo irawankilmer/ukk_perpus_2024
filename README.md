@@ -1,82 +1,106 @@
 # ukk_perpus_2024
-## Step 1 PEMBUATAN DATABASE
-#### 1. Buat Database baru dan beri nama ukk_perpus_2024
-#### 2. Klik di nama database yang baru dibuat
-#### 3. Kemudian klik menu sql dibagian atas, lalu masukan script sql berikut
+## Step 2 STRUKTUR FOLDER DAN URL
+Pada langkah ini kita akan menambahkan struktur folder dan url, silhkan ikuti langkah - langkah berikut ini
+#### 1. Buat folder baru di dalam folder htdocs dengan nama ukk_perpus_2024
+#### 2. Masukan folder yang baru dibuat ke dalam text editor, boleh menggunakan sublime text, visual studio code atau yang lainnya
+#### 3. Buat 3 folder baru, masing - masing dengan nama App, Core dan Public
+#### 4. Didalam folder root/utama buat file baru dengan nama .htaccess, lalu tuliskan code berikut
 ```
-CREATE TABLE users(
-    UserID INT NOT NULL AUTO_INCREMENT,
-    Username VARCHAR(255) UNIQUE,
-    Password VARCHAR(255),
-    Email VARCHAR(255),
-    NamaLengkap VARCHAR(255),
-    Alamat TEXT,
-    Role ENUM("Administrator", "Petugas", "Peminjam"),
-    PRIMARY KEY(UserID)
-);
+/.htaccess
+<IfModule mod_rewrite.c>
+	RewriteEngine On
 
-CREATE TABLE buku(
-    BukuID INT NOT NULL AUTO_INCREMENT,
-    Judul VARCHAR(255),
-    Penulis VARCHAR(255),
-    Penerbit VARCHAR(255),
-    TahunTerbit INT,
-    PRIMARY KEY(BukuID)
-);
+	RewriteRule ^public/ - [L]
 
-CREATE TABLE kategoribuku(
-    KategoriID INT NOT NULL AUTO_INCREMENT,
-    NamaKategori VARCHAR(255),
-    PRIMARY KEY(KategoriID)
-);
+	RewriteCond %{DOCUMENT_ROOT}/public/$1 -f
+	RewriteRule (.+) public/$1 [L]
 
-CREATE TABLE kategoribuku_relasi(
-    KategoriBukuID INT NOT NULL AUTO_INCREMENT,
-    BukuID INT NOT NULL,
-    KategoriID INT NOT NULL,
-    PRIMARY KEY(KategoriBukuID),
-    FOREIGN KEY(BukuID) REFERENCES buku(BukuID) ON DELETE CASCADE,
-    FOREIGN KEY(KategoriID) REFERENCES kategoribuku(KategoriID) ON DELETE CASCADE
-);
-
-CREATE TABLE ulasanbuku(
-    UlasanID INT NOT NULL AUTO_INCREMENT,
-    UserID INT NOT NULL,
-    BukuID INT NOT NULL,
-    Ulasan TEXT,
-    Rating INT,
-    PRIMARY KEY (UlasanID),
-    FOREIGN KEY (UserId) REFERENCES users (UserId) ON DELETE CASCADE,
-    FOREIGN KEY (BukuID) REFERENCES buku (BukuID) ON DELETE CASCADE
-);
-
-CREATE TABLE koleksipribadi(
-    KoleksiID INT NOT NULL AUTO_INCREMENT,
-    UserID INT NOT NULL,
-    BukuID INT NOT NULL,
-    PRIMARY KEY (KoleksiID),
-    FOREIGN KEY (UserID) REFERENCES users (UserId) ON DELETE CASCADE,
-    FOREIGN KEY (BukuID) REFERENCES buku (BukuID) ON DELETE CASCADE
-);
-
-CREATE TABLE peminjaman (
-    PeminjamanID INT NOT NULL AUTO_INCREMENT,
-    UserID INT NOT NULL,
-    BukuID INT NOT NULL,
-    TanggalPeminjaman DATE,
-    TanggalPengembalian DATE,
-    StatusPeminjaman VARCHAR(50),
-    PRIMARY KEY (PeminjamanID),
-    FOREIGN KEY (UserID) REFERENCES users (UserID) ON DELETE CASCADE,
-    FOREIGN KEY (BukuID) REFERENCES buku (BukuID) ON DELETE CASCADE
-);
+	RewriteRule (.*) public/index.php?page=$1 [L,QSA]
+</IfModule>
 ```
+#### 5. Kemudian, didalam folder Core buat 1 file baru dengan nama Url.php, lalu tuliskan code berikut
+````
+/Core/Url.php
+<?php 
+class Url
+{
+	public function run()
+	{
+		$controller = $this->getController();
+		$method 	= $this->getMethod();
+		$parameter 	= $this->getParameter();
 
-#### 4. Terakhir, klik tombol kirim/send pada bagian paling bawah
-#### 5. Dipojok kanan atas klik menu designer. Kalau berhasil, maka tampilannya akan terlihat seperti berikut
+		include '../app/controllers/'.$controller.'.php';
+		$controller	= new $controller;
 
-![Alt text](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/database%20design.PNG)
+		return call_user_func([$controller, $method], $parameter);
+	}
+
+	public function getUrl()
+	{
+		$url = explode('/', rtrim($_GET['page'], '/'));
+		$url = empty($url[0]) ? ['home'] : $url;
+
+		return $url;
+	}
+
+	public function getController()
+	{
+		$controller = $this->getUrl();
+
+		return ucfirst($controller[0]).'Controller';
+	}
+
+	public function getMethod()
+	{
+		$method = $this->getUrl();
+
+		if (count($method) === 3) {
+			$method = $method[2];
+		} elseif (count($method) === 2) {
+			$method = $method[1];
+		} else {
+			$method = 'index';
+		}
+
+		return $method;
+	}
+
+	public function getParameter()
+	{
+		$parameter = $this->getUrl();
+
+		return count($parameter) === 3 ? $parameter[1] : null;
+	}
+}
+````
+#### 6. Didalam folder App buat folder baru dengan nama Controllers, lalu didalamnya buat 1 file baru dengan nama HomeController.php dan ketikan code berikut.
+```
+/App/Controllers/HomeController.php
+<?php 
+class HomeController 
+{
+  public function index()
+  {
+    return "Ini halaman home";
+  }
+}
+
+```
+#### 6. Sekarang, didalam folder Public, buat satu file baru dengan nama index.php, kemudian tuliskan code berikut 
+```
+/Public/index.php
+<?php 
+include '../core/Url.php';
+$url = new Url();
+print_r($url->getUrl());
+```
+#### 7. Silahkan coba jalankan di web browser dengan memasukan alamat berikut http://localhost/ukk_perpus_2024, lalu lihat apa yang ditampilkan
+### Tugas 1
+#### Tambahkan karakter buku di url, sehingga terlihat seperti berikut http://localhost/ukk_perpus_2024/buku, coba cari tahu dan perbaiki apa error nya, nilai 50
+#### Didalam file index.php coba panggil semua method dari class Url, lalu catat apa saja yang dikembalikan dari method - method tersebut, nilai 50
+
 
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
-[Lanjut ke step 2](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-2)
+[Kembali ke step 1](https://github.com/irawankilmer/ukk_perpus_2024)
