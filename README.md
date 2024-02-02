@@ -1,4 +1,8 @@
 # ukk_perpus_2024
+## Step 1 PEMBUATAN DATABASE
+#### 1. Buat Database baru dan beri nama ukk_perpus_2024
+#### 2. Klik di nama database yang baru dibuat
+#### 3. Kemudian klik menu sql dibagian atas, lalu masukan script sql berikut
 ```
 CREATE TABLE users(
     UserID INT NOT NULL AUTO_INCREMENT,
@@ -67,4 +71,12 @@ CREATE TABLE peminjaman (
     FOREIGN KEY (BukuID) REFERENCES buku (BukuID) ON DELETE CASCADE
 );
 ```
+
+#### 4. Terakhir, klik tombol kirim/send pada bagian paling bawah
+#### 5. Dipojok kanan atas klik menu designer. Kalau berhasil, maka tampilannya akan terlihat seperti berikut
+
 ![Alt text](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/database%20design.PNG)
+
+### NOTE :
+#### - Jika masih ada error silahkan tanyakan ke guru pembimbing
+[Lanjut ke step 2](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-2)
