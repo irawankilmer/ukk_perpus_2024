@@ -411,7 +411,8 @@ class LoginController extends Controller
 </body>
 </html>
 ```
-#### 10. Sekarang coba lagi jalankan di web browser, kalau tampilannya sudah sama seperti berikut berarti sudah berhasil, kalau masih ada error, sialhakan ulangi lagi langkah - langkah diatas.
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-3/img/login.PNG)
+#### 10. Sekarang coba lagi jalankan di web browser, kalau tampilannya sudah sama seperti gambar diatas berarti sudah berhasil, kalau masih ada error, sialhakan ulangi lagi langkah - langkah diatas.
 #### 11. Sebelum login buat user baru dengan cara klik tombol belum punya akun ? dibagian bawah pada halaman login
 #### 12. Jika pendaftaran sudah berhasil, silahkan coba login menggunakan username dan password yang baru didaftarkan
 jangan memasukan username dan email yang sudah terdaftar di database, itu akan mengakibatkan error. karena keterbatasan waktu, saya belum sempat menambahkan fitur untuk menangani masalah tersebut. Bisa dicoba oleh kalian secara mandiri dengan melihat semua materi yang sudah dipelajari di kelas<br>
