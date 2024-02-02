@@ -186,7 +186,8 @@ class LoginController extends Controller
         'Email'         => $_POST['Email'],
         'NamaLengkap'   => $_POST['NamaLengkap'],
         'Alamat'        => $_POST['Alamat'],
-        'Password'      => password_hash($_POST['Password'], PASSWORD_DEFAULT)
+        'Password'      => password_hash($_POST['Password'], PASSWORD_DEFAULT),
+	'Role'		=> 3
       ]) > 0) {
         redirectTo('success', 'Selamat, Registrasi berhasil', '/login/register');
       } else {
