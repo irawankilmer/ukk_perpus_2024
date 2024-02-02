@@ -4,7 +4,7 @@ Pada tahap ini, kita akan menambahkan sistem login dan register, dimana sistem r
 ok langsung saja ikuti langkah - langkah berikut
 ### Download template AdminLte3
 Untuk tampilan, disini kita akan menggunakan template adminlte3, untuk itu kita harus mendownload nya terlebih dahulu
-#### 1. klik link download berikut
+#### 1. klik link download berikut [AdminLte3](https://github.com/irawankilmer/adminlte3)
 #### 2. pindahkan hasil download yang berupa file zip ke dalam folder public
 #### 3. extract, lalu ganti namanya menjadi adminlte
 #### 4. hapus file zip hasil download tadi
