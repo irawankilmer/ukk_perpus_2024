@@ -1,5 +1,11 @@
 # ukk_perpus_2024
 ## Step 1 PEMBUATAN DATABASE
+Dalam tulisan ini saya akan membahas soal ukk soal paket ke satu yaitu pembuatan Aplikasi Perpustakaan Digital<br>
+dimana, sistem ini mempunyai 3 hak akses yang bisa dilihat pada gambar berikut.
+![Alt text](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/Role.PNG) <br>
+Untuk melihat soal/tugas pada paket soal ini, silahkan minta kepada guru pembimbing<br>
+
+
 #### 1. Buat Database baru dan beri nama ukk_perpus_2024
 #### 2. Klik di nama database yang baru dibuat
 #### 3. Kemudian klik menu sql dibagian atas, lalu masukan script sql berikut
