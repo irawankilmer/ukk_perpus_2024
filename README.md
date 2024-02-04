@@ -283,7 +283,7 @@ Coba kalian perhatikan gambar diatas.<br>
 Ini penting untuk dipahami untuk nanti saat pelaksanaan ukk.<br>
 Yang mempunyai tombol edit dan hapus hanya data yang role nya petugas.<br>
 Sedangkan data dengan role peminjam hanya memiliki tombol hapus.<br>
-Terakhir role Administrator, disini saya sengaja tidak memunculkan tombol edit maupun hapus, alasannya, kalau misalkan kita tidak sengaja menghapus data dengan role Administrator, maka kita harus menambahkan lagi data baru secara manual seperti pada langkah pertama diatas. Yang saya takutkan, pada pelaksanaan ukk nanti kalian lupa lagi cara menambahkannya.<br>
+Terakhir role Administrator, disini saya sengaja tidak memunculkan tombol edit maupun hapus, alasannya, kalau misalkan kita tidak sengaja menghapus data dengan role Administrator, maka kita harus menambahkan lagi data baru secara manual seperti pada langkah pertama diatas.<br>
 Nah kalau peminjam, saya cuma menambahkan tombol hapus, alasannya, karena peminjam merupakan user tamu, jadi seharusnya dia bisa melakukan perubahan data secara mandiri, tapi karena keterbatasan waktu, dalam project ini saya tidak akan menambahkan fitur tersebut.<br>
 Supaya cepat dan memenuhi syarat dari CRUD, makannya saya hanya menambahkan tombol edit dan hapus hanya pada role petugas.
 #### 6. Terakhir, masih didalam folder user, buat file baru dan beri nama edit, lalu tuliskan syntaks berikut.
