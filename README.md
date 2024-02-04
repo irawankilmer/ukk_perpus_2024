@@ -7,7 +7,7 @@ Karena fitur crud user hanya untuk petugas, maka penambahan data Administrator h
 ```
 /public/index.php
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'perpus_digital');
+$conn = mysqli_connect('localhost', 'root', '', 'perpus_digital'); # sesuaikan nama database nya 
 $password = password_hash('admin', PASSWORD_DEFAULT);
 mysqli_query($conn, "INSERT INTO users VALUES (null, 'admin', '$password', 'admin@gmail.com', 'Administrator Pertama', 'Kiarapayung', 1);
 ");
@@ -223,7 +223,7 @@ public function getAll()
       </div>
 <?php include '../app/views/templates/footer.php'; ?>
 ```
-Sampai sini, coba dulu jalankan program di web browser dengan mengunjungi alamat berikut http://localhost/ukk_perpus_2024 dan login menggunakan akun Administrator.<br>
+Sampai sini, coba dulu jalankan program di web browser dengan mengunjungi alamat berikut http://localhost/ukk_perpus_albi(sesuiaikan dengan project masing - masing) dan login menggunakan username dan password "admin".<br>
 Lalu buka menu user yang bisa dibuka pada menu data, kalau tampilannya sama seperti gambar berikut, artinya sudah berhasil<br>
 ![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-4/img/huhu.PNG)
 Kalau masih ada error, ulangi lagi langkah - langkah diatas<br>
@@ -329,5 +329,4 @@ Supaya cepat dan memenuhi syarat dari CRUD, makannya saya hanya menambahkan tomb
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 #### - Tulis hanya code yang belum terdapat pada file yang akan di edit saja, jangan ditulis ulang semuanya
-[Kembali ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-4) | 
-[Lanjut ke step 6](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-6)
+[Kembali ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-4)
