@@ -324,9 +324,8 @@ Supaya cepat dan memenuhi syarat dari CRUD, makannya saya hanya menambahkan tomb
 </div>
 <?php include '../app/views/templates/footer.php'; ?>
 ```
-### Tugas 3
-#### - Tambahkan fitur CRUD lengkap untuk kategoribuku, tambahkan menu kategori buku di bawah menu user, nilai 100
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 #### - Tulis hanya code yang belum terdapat pada file yang akan di edit saja, jangan ditulis ulang semuanya
-[Kembali ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-4)
+[Kembali ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-4) | 
+[Lanjut ke step 6](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-6)
