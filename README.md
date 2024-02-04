@@ -11,6 +11,7 @@ Untuk tampilan, disini kita akan menggunakan template adminlte3, untuk itu kita 
 Jika sampai langkah ini belum berhasil, silahkan tanyakan ke teman sekelas atau langsung tanyakan ke guru pembimbing<br>
 Ok sekarang kita lanjutkan ke step berikutnya, ikuti langkah - langkah berikut ini.
 #### 1. Didalam folder core buat 1 file baru dengan nama functions.php, lalu ketik code berikut
+Catatan : Sesuaikan url nya, ganti ukk_perpus_albi dengan nama project masing - masing
 ```
 /core/functions.php
 <?php 
@@ -22,19 +23,19 @@ $url = new Url();
 function checkIsNotLogin()
 {
 	if (!isset($_SESSION['login'])) {
-		header("Location:http://localhost/ukk_perpus_2024/login");
+		header("Location:http://localhost/ukk_perpus_albi/login");
 	}
 }
 
 function urlTo($to)
 {
-	return 'http://localhost/ukk_perpus_2024'.$to;
+	return 'http://localhost/ukk_perpus_albi'.$to;
 }
 
 function redirectTo($icon, $pesan, $tujuan)
 {
 	setcookie('alert', serialize([$icon, $pesan]), time() + 1, '/');
-	header("Location:http://localhost/ukk_perpus_2024".$tujuan);
+	header("Location:http://localhost/ukk_perpus_albi".$tujuan);
 }
 ```
 #### 2. Ubah isi didalam file index.php yang berada didalam folder public sehingga terlihat seperti berikut
@@ -45,7 +46,7 @@ session_start();
 include '../core/functions.php';
 $url->run();
 ```
-#### 3. Didalam folder core, buat file baru dengan nama Controller.php, lalu isikan syntaks berikut
+#### 3. Didalam folder core, buat file baru dengan nama Controller.php, lalu tuliskan syntaks berikut
 ````
 /core/Controller.php
 <?php 
@@ -80,11 +81,11 @@ class HomeController extends Controller
   }
 }
 ```
-Silahkan coba jalankan di web browser dengan memasukan link berikut http://localhost/ukk_perpus_2024, kalian akan langsung diarahkan ke halaman berikut http://localhost/ukk_perpus_2024/login dan mengembalikan error<br>
+Silahkan coba jalankan di web browser dengan memasukan link berikut http://localhost/ukk_perpus_albi(Sesuaikan dengan nama project masing - masing), kalian akan langsung diarahkan ke halaman berikut http://localhost/ukk_perpus_albi/login dan mengembalikan error<br>
 Silahkan baca dengan seksama, apa arti dari error tersebut.<br>
 Error tersebut mengindikasikan file yang dipanggil yaitu LoginController belum dibuat, pengalihan otomatis ini berkat fungsi checkIsNotLogin() yang dibuat pada langkah satu diatas<br>
 Sebelum melanjutkan, silahkan pelajari terlebih dahulu.<br>
-Kalau sudah paham, silahkan ikuti lagi langkah - langkah berikut ini.
+Kalau sudah paham, silahkan ikuti kembali langkah - langkah berikut ini.
 #### 5. Didalam folder core buat satu file baru dan beri nama BaseModel.php
 ```
 /core/BaseModel.php
@@ -96,7 +97,7 @@ class BaseModel
 
 	public function __construct()
 	{
-		$this->mysqli = new mysqli('localhost', 'root', '', 'ukk_perpus_2024');
+		$this->mysqli = new mysqli('localhost', 'root', '', 'perpus_digital'); # sesuaikan dengan nama database masing - masing
 	}
 
 	public function getByUsername($username)
@@ -413,13 +414,14 @@ class LoginController extends Controller
 </html>
 ```
 ![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-3/img/login.PNG)
-#### 10. Sekarang coba lagi jalankan di web browser, kalau tampilannya sudah sama seperti gambar diatas berarti sudah berhasil, kalau masih ada error, sialhakan ulangi lagi langkah - langkah diatas.
+#### 10. Sekarang coba lagi jalankan di web browser, kalau tampilannya sudah sama seperti gambar diatas berarti sudah berhasil, kalau masih ada error, silahkan ulangi lagi langkah - langkah diatas.
 #### 11. Sebelum login buat user baru dengan cara klik tombol belum punya akun ? dibagian bawah pada halaman login
+Yang register disini di khususkan untuk role peminjam saja
 #### 12. Jika pendaftaran sudah berhasil, silahkan coba login menggunakan username dan password yang baru didaftarkan
 jangan memasukan username dan email yang sudah terdaftar di database, itu akan mengakibatkan error. karena keterbatasan waktu, saya belum sempat menambahkan fitur untuk menangani masalah tersebut. Bisa dicoba oleh kalian secara mandiri dengan melihat semua materi yang sudah dipelajari di kelas<br>
-#### 13. jika berhasil, maka akan diarahkan ke halaman home, yang link nya terlihat seperti berikut http://localhost/ukk_perpus_2024/
+#### 13. jika berhasil, maka akan diarahkan ke halaman home, yang link nya terlihat seperti berikut http://localhost/ukk_perpus_albi/
 Pada halaman home tidak akan ada response apapun, tidak masalah, nanti kita perbaiki.
-#### 14. Untuk mencoba fitur logout, di url silahkan arahkan ke halaman berikut http://localhost/ukk_perpus_2024/login/logout
+#### 14. Untuk mencoba fitur logout, di url silahkan arahkan ke halaman berikut http://localhost/ukk_perpus_albi/login/logout
 Jika berhasil, halaman akan diarahkan ke halaman login dengan menampilkan pesan sukses seperti berikut "Selamat, Anda berhasil logout"
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
