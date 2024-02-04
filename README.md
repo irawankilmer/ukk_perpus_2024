@@ -2,7 +2,7 @@
 ## Step 2 STRUKTUR FOLDER DAN URL
 Pada langkah ini kita akan menambahkan struktur folder dan url, silahkan ikuti langkah - langkah berikut ini
 #### 1. Buat folder baru di dalam folder htdocs dengan nama ukk_perpus_2024
-angka 2024 diakhir ganti dengan nama masing2, contoh ukk_perpus_suci
+Angka 2024 diakhir ganti dengan nama masing2, contoh ukk_perpus_suci. Dalam tutorial ini saya ganti nama nya menjadi ukk_perpus_albi
 #### 2. Masukan folder yang baru dibuat ke dalam text editor, boleh menggunakan sublime text, visual studio code atau yang lainnya
 #### 3. Buat 3 folder baru, masing - masing dengan nama app, core dan public
 #### 4. Didalam folder root/utama buat file baru dengan nama .htaccess, lalu tuliskan code berikut
@@ -19,6 +19,8 @@ angka 2024 diakhir ganti dengan nama masing2, contoh ukk_perpus_suci
 	RewriteRule (.*) public/index.php?page=$1 [L,QSA]
 </IfModule>
 ```
+Hasilnya akan terlihat seperti pada gambar berikut<br>
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/3.PNG)
 #### 5. Kemudian, didalam folder core buat 1 file baru dengan nama Url.php, lalu tuliskan code berikut
 ````
 /core/Url.php
@@ -96,9 +98,10 @@ include '../core/Url.php';
 $url = new Url();
 print_r($url->getUrl());
 ```
-#### 7. Silahkan coba jalankan di web browser dengan memasukan alamat berikut http://localhost/ukk_perpus_2024, lalu lihat apa yang ditampilkan
+#### 7. Silahkan coba jalankan di web browser dengan memasukan alamat berikut http://localhost/ukk_perpus_albi, lalu lihat apa yang ditampilkan
+Url disesuaikan dengan nama project masing2
 ### Tugas 1
-#### Tambahkan karakter buku di url, sehingga terlihat seperti berikut http://localhost/ukk_perpus_2024/buku, coba cari tahu dan perbaiki apa error nya, nilai 50
+#### Tambahkan karakter buku di url, sehingga terlihat seperti berikut http://localhost/ukk_perpus_albi/buku, coba cari tahu dan perbaiki apa error nya, nilai 50
 #### Didalam file index.php coba panggil semua method dari class Url, lalu catat apa saja yang dikembalikan dari method - method tersebut, nilai 50
 
 
