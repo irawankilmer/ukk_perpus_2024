@@ -6,7 +6,11 @@ Sistem ini mempunyai 3 hak akses yang bisa dilihat pada gambar berikut.<br>
 Untuk melihat soal lengkap, silahkan minta kepada guru pembimbing<br>
 Ok, langsung saja masuk ke pembahasan, pada tahap ini kita akan membuat database lengkap dengan beberapa table yang dibutuhkan.
 
-#### 1. Buat Database baru dan beri nama ukk_perpus_2024
+#### 1. Silahkan buka aplikasi xampp, kemudian klik start pada tombol apache dan mysql
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/1.PNG)
+#### 2. Buat Database baru dengan cara masuk ke alamat berikut http://localhost/phpmyadmin/
+Untuk nama database silahkan disesuaikan, disini saya memberi nama database nya perpus_digital
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/2.PNG)
 #### 2. Klik di nama database yang baru dibuat
 #### 3. Kemudian klik menu sql dibagian atas, lalu masukan script sql berikut
 ```
