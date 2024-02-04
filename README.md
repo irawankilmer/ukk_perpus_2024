@@ -1,5 +1,5 @@
 # ukk_perpus_2024
-## Step 8 CRUD Buku
+## Step 7 CRUD Buku
 Dalam step ini kita akan menambahkan sistem crud buku, saya asumsikan pada langkah sebelumnya project sudah berhasil di jalankan dan tidak terdapat error.
 ## 1. Menambahkan menu buku
 Pada langkah pertama kita akan menambahkan menu buku pada sidebar, silahkan buka file header.php didalam folder templates. Lalu perhatikan scope menu data berikut
