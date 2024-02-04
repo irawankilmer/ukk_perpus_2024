@@ -4,7 +4,7 @@ Dalam tulisan ini kita akan membahas soal ukk tahun 2024 paket ke satu yaitu pem
 Sistem ini mempunyai 3 hak akses yang bisa dilihat pada gambar berikut.<br>
 ![Alt text](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/Role.PNG) <br>
 Untuk melihat soal lengkap, silahkan minta kepada guru pembimbing<br>
-
+Ok, langsung saja masuk ke pembahasan, pada tahap ini kita akan membuat database lengkap dengan beberapa table yang dibutuhkan.
 
 #### 1. Buat Database baru dan beri nama ukk_perpus_2024
 #### 2. Klik di nama database yang baru dibuat
