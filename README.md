@@ -1,167 +1,148 @@
 # ukk_perpus_2024
-## Step 5 CRUD PETUGAS
-Pada langkah ini kita akan menambahkan fitur crud user tapi dikhususkan untuk role/hak akses petugas<br>
-Tapi sebelum ke pembuatan fitur tersebut, kita tambahkan terlebih dahulu data untuk Administratornya<br>
-Karena fitur crud user hanya untuk petugas, maka penambahan data Administrator harus dilakukan secara manual, cara nya ikuti langkah - langkah berikut ini
-#### 1. Didalam folder public, buka file index.php, lalu ganti dulu isi nya dengan syntaks berikut
+## Step 8 CRUD Buku
+Dalam step ini kita akan menambahkan sistem crud buku, saya asumsikan pada langkah sebelumnya project sudah berhasil di jalankan dan tidak terdapat error.
+## 1. Menambahkan menu buku
+Pada langkah pertama kita akan menambahkan menu buku pada sidebar, silahkan buka file header.php didalam folder templates. Lalu perhatikan scope menu data berikut
 ```
-/public/index.php
-<?php
-$conn = mysqli_connect('localhost', 'root', '', 'perpus_digital'); # sesuaikan nama database nya 
-$password = password_hash('admin', PASSWORD_DEFAULT);
-mysqli_query($conn, "INSERT INTO users VALUES (null, 'admin', '$password', 'admin@gmail.com', 'Administrator Pertama', 'Kiarapayung', 1);
-");
+/app/views/templates/header.php
+<li class="nav-item <?= menuOpen(['user', 'kategoribuku']); ?>">
+	<a href="#" class="nav-link <?= menuActive(['user', 'kategoribuku']); ?>">
 ```
-#### 2. Sekarang buka web browser dan arahkan ke link berikut http://localhost/ukk_perpus_2024/
-Jika tidak terjadi error, kemungkinan besar data berhasil di tambahkan<br>
-#### 3. Buka database, lalu lihat data didalam table users
-![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-4/img/dd.PNG)
-Jika ada data baru seperti terlihat pada gambar diatas berarti sudah berhasil
-#### 3. Buka lagi file index.php, lalu ganti lagi isi nya dengan syntaks berikut
+Perbaharui 2 baris syntaks diatas sehingga terlihat seperti berikut.
 ```
-/public/index.php
+/app/views/templates/header.php
+<li class="nav-item <?= menuOpen(['user', 'kategoribuku']); ?>">
+	<a href="#" class="nav-link <?= menuActive(['user', 'kategoribuku']); ?>">
+```
+Masih didalam scope data, tambahkan syntaks berikut dan letakan setelah menu kategori buku
+```
+/app/view/templates/header.php
+<li class="nav-item">
+	<a href="<?= urlTo('/buku'); ?>" class="nav-link <?= menuActive(['buku']); ?>">
+		<i class="far fa-circle nav-icon"></i>
+		<p>Buku</p>
+	</a>
+</li>
+```
+Coba jalankan program di web browser, dan buka menu data. Kalau sudah berhasil akan ada satu menu baru bernama buku
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/7a.PNG)
+## 2. Menambahkan Controller buku
+Sebelumnya kita sudah berhasil menambahkan menu buku, tapi kalau sekarang kalian coba klik menu tersebut response yang dikembalikan adalah error, karena kita belum menambahkan controller buku.<br>
+Untuk menambahkan controller buku, didalam folder controllers buat satu folder baru dengan nama BukuController.php, lalu tuliskan syntaks berikut
+```
+/app/controllers/BukuController.php
 <?php 
-session_start();
-include '../core/functions.php';
-$url->run();
-```
-Sekarang kita lanjutkan ke pembuatan fitur crud petugas, ikuti langkah - langkah berikut ini.
-#### 1. Didalam folder controllers buat satu file baru dan beri nama UserController.php, lalu tuliskan syntaks berikut
-```
-/app/controllers/UserController.php
-<?php 
-class UserController extends Controller
+class BukuController extends Controller
 {
   public function index()
   {
-    $data = $this->model('User')->getAll();
-    $this->view('user/home', $data);
+    $data = $this->model('KBRelasi')->get();
+    $this->view('buku/home', $data);
   }
 
   public function create()
   {
-    $this->view('user/create');
+    $data = $this->model('KategoriBuku')->getAll();
+    $this->view('buku/create', $data);
   }
 
   public function store()
   {
-    if ($_POST['Password'] !== $_POST['Konfirmasi_Password']) {
-      redirectTo('error', 'Maaf, Konfirmasi password tidak cocok!', '/user/create');
+    $BukuID = $this->model('Buku')->create([
+      'Judul'       => $_POST['Judul'],
+      'Penulis'     => $_POST['Penulis'],
+      'Penerbit'    => $_POST['Penerbit'],
+      'TahunTerbit' => $_POST['TahunTerbit']
+    ]);
+
+    $KategoriID = $_POST['KategoriID'];
+
+    if ($this->model('KBRelasi')->create([
+      'BukuID'      => $BukuID,
+      'KategoriID'  => $KategoriID
+    ]) > 0) {
+      redirectTo('success', 'Selamat, Buku berhasil di tambahkan', '/buku');
     } else {
-      if ($this->model('User')->create([
-        'Username'      => $_POST['Username'],
-        'Email'         => $_POST['Email'],
-        'NamaLengkap'   => $_POST['NamaLengkap'],
-        'Alamat'        => $_POST['Alamat'],
-        'Password'      => password_hash($_POST['Password'], PASSWORD_DEFAULT),
-        'Role'          => 2
-      ]) > 0) {
-        redirectTo('success', 'Selamat, Data Petugas Berhasil di Tambahkan', '/user');
-      } else {
-        redirectTo('error', 'Maaf, Username/Email sudah terdaftar', '/user');
-      }
+      redirectTo('error', 'Maaf, Buku gagal di tambahkan', '/buku/create');
     }
   }
 
   public function edit($id)
   {
-    $data = $this->model('User')->getById($id);
-    $this->view('user/edit', $data);
+    $data = $this->model('Buku')->getById($id);
+    $this->view('buku/edit', $data);
   }
 
   public function update($id)
   {
-    if ($this->model('User')->update($id) > 0) {
-			redirectTo('success', 'Selamat, Data Petugas berhasil di edit!', '/user');
-		} else {
-			redirectTo('info', 'Tidak ada perubahan data!', '/user');
-		}
+    if ($this->model('Buku')->update($id) > 0) {
+      redirectTo('success', 'Selamat, Data Buku Berhasil di Update', '/buku');
+    } else {
+      redirectTo('danger', 'Maaf, Data Buku gagal di Update', '/buku');
+    }
   }
 
   public function delete($id)
 	{
-		if ($this->model('User')->delete($id) > 0) {
-			redirectTo('success', 'Selamat, Data User berhasil di hapus!', '/user');
+		if ($this->model('Buku')->delete($id) > 0) {
+			redirectTo('success', 'Selamat, Data Buku berhasil di hapus!', '/buku');
 		}
 	}
 }
 ```
-#### 2. Buka file header.php, lalu tambahkan syntaks berikut simpan diantara menu home dan menu logout
+Jangan dijalankan dulu, karena controller tersebut terhubung ke model buku, model relasi dan view home, yang akan kita buat di tahap selanjutnya
+## 3. Menambahkan Model buku
+Untuk membuat model buku, didalam folder models buat satu file baru dan beri nama Buku.php, lalu tuliskan syntaks berikut
 ```
-/app/views/templates/header.php
-<?php if ($_SESSION['role'] === 'Administrator'): ?>
-          <li class="nav-item <?= menuOpen(['user']); ?>">
-            <a href="#" class="nav-link <?= menuActive(['user']); ?>">
-              <i class="nav-icon fas fa-save"></i>
-              <p>
-                Data
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="<?= urlTo('/user'); ?>" class="nav-link <?= menuActive(['user']); ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>User</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <?php endif ?>
+/app/models/Buku.php
+<?php 
+class Buku extends BaseModel
+{
+  public $table_name  = "buku";
+  public $table_id    = "BukuID";
+}
 ```
-#### 3. Didalam folder core, buka file BaseModel.php, lalu tambahkan beberapa method berikut
+## 4. Menambahkan Model relasi buku dan kategori buku
+Masih di folder models, buat satu file baru beri nama KBRelasi.php, kemudian tuliskan syntaks berikut
 ```
-/core/BaseModel.php
-public function getAll()
-	{
-		$result = $this->mysqli->query("SELECT * FROM $this->table_name ORDER BY $this->table_id DESC");
+/app/models/KBRelasi.php
+<?php 
+class KBRelasi extends BaseModel
+{
+  public $table_name    = "kategoribuku_relasi";
+  public $table_id      = "KategoriBukuID";
 
-		$data = [];
+  public function get()
+  {
+    $query = "SELECT * FROM kategoribuku_relasi
+    INNER JOIN buku ON kategoribuku_relasi.BukuID = buku.BukuID
+    INNER JOIN kategoribuku ON kategoribuku_relasi.KategoriID = kategoribuku.KategoriID
+    ORDER BY buku.BukuID DESC
+    ";
+
+    $result = $this->mysqli->query($query);
+
+    $data = [];
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 
 		return $data;
-	}
-
-	public function getById($id)
-	{
-		$result = $this->mysqli->query("SELECT * FROM $this->table_name WHERE $this->table_id = '$id'");
-
-		return $result->fetch_assoc();
-	}
-
-	public function update($id)
-	{
-		$values = '';
-		foreach ($_POST as $key => $value) {
-			$values .= $key." = '".$value."', ";
-		}
-		$values = rtrim($values, ', ');
-
-		$this->mysqli->query("UPDATE $this->table_name SET $values WHERE $this->table_id = '$id'");
-
-		return $this->mysqli->affected_rows;
-
-	}
-
-	public function delete($id)
-	{
-		$this->mysqli->query("DELETE FROM $this->table_name WHERE $this->table_id = '$id'");
-
-		return $this->mysqli->affected_rows;
-	}
+  }
+}
 ```
-#### 4. Didalam folder views buat satu folder baru beri nama user, kemudian didalamnya tambahkan satu file dengan nama home.php, terakhir tuliskan syntaks berikut.
+## 5. Menambahkan view home
+Sejauh ini kita sudah berhasil menambahkan 2 model yang terhubung ke BukuController, tapi sekarang kalau kalian coba jalankan program nya response yang di kembalikan masih error karena controller tersebut memerlukan view home.<br>
+Untuk membuatnya, didalam folder views, buat satu folder beri nama buku dan didalam folder baru tersebut buat satu file dengan nama home.php, kemudian tuliskan syntaks berikut
 ```
-/app/views/user/home.php
+/app/views/buku/home.php
 <?php include '../app/views/templates/header.php'; $no = 1; ?>
 <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <a href="<?= urlTo('/user/create'); ?>" class="btn btn-primary float-right">Tambah Data Petugas</a>
+                <a href="<?= urlTo('/buku/create'); ?>" class="btn btn-primary float-right">Tambah Data</a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -169,34 +150,38 @@ public function getAll()
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Nama Lengkap</th>
-                    <th>Email</th>
-                    <th>Alamat</th>
-                    <th>Role</th>
+                    <th>Kategori</th>
+                    <th>Judul</th>
+                    <th>Penulis</th>
+                    <th>Penerbit</th>
+                    <th>Tahun Terbit</th>
                     <th>Tindakan</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php foreach ($data as $user): ?>
+                  <?php foreach ($data as $buku): ?>
                   	<tr>
                   		<td><?= $no; ?></td>
-                  		<td><?= $user['NamaLengkap']; ?></td>
-                  		<td><?= $user['Email']; ?></td>
-                  		<td><?= $user['Alamat']; ?></td>
-                  		<td><?= $user['Role']; ?></td>
-                  		<td>
-                  			<?php if($user['Role'] === 'Petugas'): ?>
-                          <a href="<?= urlTo('/user/'.$user['UserID'].'/edit') ?>" class="btn btn-warning">
-                            Edit
-                          </a>
-                  			<?php endif ?>
+                  		<td><?= $buku['NamaKategori']; ?></td>
+                  		<td><?= $buku['Judul']; ?></td>
+                  		<td><?= $buku['Penulis']; ?></td>
+                  		<td><?= $buku['Penerbit']; ?></td>
+                  		<td><?= $buku['TahunTerbit']; ?></td>
+                      <td>
+                        <a 
+                          href="<?= urlTo('/buku/'.$buku['BukuID'].'/edit') ?>"
+                          class="btn btn-warning
+                          ">
+                          Edit
+                        </a>
 
-                        <?php if($user['Role'] !== 'Administrator'): ?>
-                          <a href="<?= urlTo('/user/'.$user['UserID'].'/delete') ?>" class="btn btn-danger">
-                            Delete
-                          </a>
-                  			<?php endif ?>
-                  		</td>
+                        <a 
+                          href="<?= urlTo('/buku/'.$buku['BukuID'].'/delete') ?>"
+                          class="btn btn-danger
+                          ">
+                          Delete
+                        </a>
+                      </td>
                   	</tr>
                   	<?php $no++; ?>
                   <?php endforeach ?>
@@ -204,10 +189,11 @@ public function getAll()
                   <tfoot>
                   <tr>
                     <th>#</th>
-                    <th>Nama Lengkap</th>
-                    <th>Email</th>
-                    <th>Alamat</th>
-                    <th>Role</th>
+                    <th>Kategori</th>
+                    <th>Judul</th>
+                    <th>Penulis</th>
+                    <th>Penerbit</th>
+                    <th>Tahun Terbit</th>
                     <th>Tindakan</th>
                   </tr>
                   </tfoot>
@@ -223,50 +209,50 @@ public function getAll()
       </div>
 <?php include '../app/views/templates/footer.php'; ?>
 ```
-Sampai sini, coba dulu jalankan program di web browser dengan mengunjungi alamat berikut http://localhost/ukk_perpus_albi(sesuiaikan dengan project masing - masing) dan login menggunakan username dan password "admin".<br>
-Lalu buka menu user yang bisa dibuka pada menu data, kalau tampilannya sama seperti gambar berikut, artinya sudah berhasil<br>
-![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-4/img/huhu.PNG)
-Kalau masih ada error, ulangi lagi langkah - langkah diatas<br>
-#### 5. Didalam folder user, buat satu file baru dan beri nama create.php lalu tuliskan syntaks berikut.
+Coba jalankan program di web browser dan arahkan ke url berikut http://localhost/ukk_perpus_albi/buku ( sesuaikan dengan url project masing - masing )
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/7b.PNG)<br>
+Kalau response nya seperti gambar diatas berarti sudah berhasil.
+## 6. Menambahkan view create
+Sejauh ini kita sudah berhasil membuat views untuk menampilkan data buku, tapi belum ada data yang ditampilkan. Kalau kalian coba klik tombol tambah data response yang dikembalikan adalah error. Untuk menangani error tersebut, kita harus menambahkan views create.<br>
+Didalam folder buku buat satu file baru namanya create.php, lalu tuliskan syntaks berikut
 ```
-/app/views/user/create.php
+/app/views/buku/create.php
 <?php include '../app/views/templates/header.php'; ?>
 <div class="col-md-6">
   <div class="card card-primary">
     <div class="card-body">
-      <form action="<?= urlTo('/user/store'); ?>" method="post">
+      <form action="<?= urlTo('/buku/store'); ?>" method="post">
         <div class="form-group">
-          <label for="Username">Username</label>
-          <input type="text" id="Username" name="Username" class="form-control" required>
+          <label for="KategoriID">Kategori</label>
+          <select id="KategoriID" name="KategoriID" class="form-control custom-select">
+          <?php foreach ($data as $k): ?>
+          <option value="<?= $k['KategoriID']; ?>"><?= $k['NamaKategori']; ?></option>
+          <?php endforeach ?>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="Email">Email</label>
-          <input type="email" id="Email" name="Email" class="form-control" required>
+          <label for="Judul">Judul</label>
+          <input type="text" id="Judul" name="Judul" class="form-control" required>
         </div>
 
         <div class="form-group">
-          <label for="NamaLengkap">NamaLengkap</label>
-          <input type="text" id="NamaLengkap" name="NamaLengkap" class="form-control" required>
+          <label for="Penulis">Penulis</label>
+          <input type="text" id="Penulis" name="Penulis" class="form-control" required>
         </div>
 
         <div class="form-group">
-          <label for="Alamat">Alamat</label>
-          <input type="text" id="Alamat" name="Alamat" class="form-control" required>
+          <label for="Penerbit">Penerbit</label>
+          <input type="text" id="Penerbit" name="Penerbit" class="form-control" required>
         </div>
 
         <div class="form-group">
-          <label for="Password">Password</label>
-          <input type="password" id="Password" name="Password" class="form-control" required>
+          <label for="TahunTerbit">TahunTerbit</label>
+          <input type="number" id="TahunTerbit" name="TahunTerbit" class="form-control" required>
         </div>
 
         <div class="form-group">
-          <label for="Konfirmasi_Password">Konfirmasi Password</label>
-          <input type="password" id="Konfirmasi_Password" name="Konfirmasi_Password" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-          <a href="<?= urlTo('/user'); ?>" class="btn btn-danger">Batal</a>
+          <a href="<?= urlTo('/buku'); ?>" class="btn btn-danger">Batal</a>
           <button type="submit" class="btn btn-primary float-right">Tambah Data</button>
         </div>
       </form>
@@ -275,47 +261,45 @@ Kalau masih ada error, ulangi lagi langkah - langkah diatas<br>
 </div>
 <?php include '../app/views/templates/footer.php'; ?>
 ```
-Coba jalankan lagi di web browser, kemudian coba tambahkan satu data dengan mengklik tombol tambah data petugas di halaman user.<br>
-Isi semua formulir, memasukan username dan email yang sudah terdaftar di database akan mengakibatkan program error.<br>
-Kalau sudah berhasil menambahkan data baru, kurang lebih tampilannya akan terlihat seperti gambar berikut.
-![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-4/img/heuheu.PNG)
-Coba kalian perhatikan gambar diatas.<br>
-Ini penting untuk dipahami untuk nanti saat pelaksanaan ukk.<br>
-Yang mempunyai tombol edit dan hapus hanya data yang role nya petugas.<br>
-Sedangkan data dengan role peminjam hanya memiliki tombol hapus.<br>
-Terakhir role Administrator, disini saya sengaja tidak memunculkan tombol edit maupun hapus, alasannya, kalau misalkan kita tidak sengaja menghapus data dengan role Administrator, maka kita harus menambahkan lagi data baru secara manual seperti pada langkah pertama diatas.<br>
-Nah kalau peminjam, saya cuma menambahkan tombol hapus, alasannya, karena peminjam merupakan user tamu, jadi seharusnya dia bisa melakukan perubahan data secara mandiri, tapi karena keterbatasan waktu, dalam project ini saya tidak akan menambahkan fitur tersebut.<br>
-Supaya cepat dan memenuhi syarat dari CRUD, makannya saya hanya menambahkan tombol edit dan hapus hanya pada role petugas.
-#### 6. Terakhir, masih didalam folder user, buat file baru dan beri nama edit, lalu tuliskan syntaks berikut.
+Jalankan program di web browser, masih di halaman buku, sekarang coba klik tombol tambah data
+![](https://github.com/irawankilmer/ukk_perpus_2024/blob/main/img/7c.PNG)<br>
+Kalau tampil seperti gambar diatas, berarti sudah berhasil. Sekarang coba isi formulis tersebut lalu klik simpan. Kalau berhasil kalian akan diarahkan ke halaman home buku dan menampilkan sat data yang baru saja kalian input kan.
+## 7. Menambahkan view edit
+Diatas kita sudah berhasil menampilkan dan menambah data buku, sekarang kita tambahkan sistem untuk edit buku.<br>
+Masih didalam folder buku, buat satu file baru dan beri nama edit.php, lalu tuliskan syntaks berikut
 ```
-/app/view/user/edit.php
+/app/views/buku/edit.php
 <?php include '../app/views/templates/header.php'; ?>
 <div class="col-md-6">
   <div class="card card-primary">
     <div class="card-body">
-      <form action="<?= urlTo('/user/'.$data['UserID'].'/update'); ?>" method="post">
+      <form action="<?= urlTo('/buku/'.$data['BukuID'].'/update'); ?>" method="post">
         <div class="form-group">
-          <label for="Username">Username</label>
-          <input type="text" id="Username" name="Username" class="form-control" value="<?= $data['Username']; ?>" readonly>
+          <label for="Judul">Judul</label>
+          <input type="text" id="Judul" name="Judul" class="form-control"
+          value="<?= $data['Judul']; ?>" required>
         </div>
 
         <div class="form-group">
-          <label for="Email">Email</label>
-          <input type="email" id="Email" name="Email" class="form-control" value="<?= $data['Email']; ?>" required>
+          <label for="Penulis">Penulis</label>
+          <input type="text" id="Penulis" name="Penulis" class="form-control"
+          value="<?= $data['Penulis']; ?>" required>
         </div>
 
         <div class="form-group">
-          <label for="NamaLengkap">NamaLengkap</label>
-          <input type="text" id="NamaLengkap" name="NamaLengkap" class="form-control" value="<?= $data['NamaLengkap']; ?>" required>
+          <label for="Penerbit">Penerbit</label>
+          <input type="text" id="Penerbit" name="Penerbit" class="form-control"
+          value="<?= $data['Penerbit']; ?>" required>
         </div>
 
         <div class="form-group">
-          <label for="Alamat">Alamat</label>
-          <input type="text" id="Alamat" name="Alamat" class="form-control" value="<?= $data['Alamat']; ?>" required>
+          <label for="TahunTerbit">TahunTerbit</label>
+          <input type="number" id="TahunTerbit" name="TahunTerbit" class="form-control"
+          value="<?= $data['TahunTerbit']; ?>" required>
         </div>
 
         <div class="form-group">
-          <a href="<?= urlTo('/user'); ?>" class="btn btn-danger">Batal</a>
+          <a href="<?= urlTo('/buku'); ?>" class="btn btn-danger">Batal</a>
           <button type="submit" class="btn btn-primary float-right">Edit Data</button>
         </div>
       </form>
@@ -324,8 +308,10 @@ Supaya cepat dan memenuhi syarat dari CRUD, makannya saya hanya menambahkan tomb
 </div>
 <?php include '../app/views/templates/footer.php'; ?>
 ```
+Sekarang coba lagi jalan kan program di web browser, lalu klik tombol edit di data buku yang tadi kalian buat, untuk percobaan silahkan ganti data sesuai dengan keinginan lalu klik tombol edit, jika berhasil kalian akan diarahkan kembali ke halaman home buku dengan pesan "selamat data buku berhasil di edit".<br>
+Untuk tombol edit tidak perlu ada syntaks yang ditambahkan, karena didalam file BukuController.php diatas sudah terdapat method delete().
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 #### - Tulis hanya code yang belum terdapat pada file yang akan di edit saja, jangan ditulis ulang semuanya
-[Kembali ke step 4](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-4) | 
-[Lanjut ke step 6](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-6)
+[Kembali ke step 6](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-6) | 
+[Lanjut ke step 8](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-8)
