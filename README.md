@@ -11,8 +11,8 @@ Pada langkah pertama kita akan menambahkan menu buku pada sidebar, silahkan buka
 Perbaharui 2 baris syntaks diatas sehingga terlihat seperti berikut.
 ```
 /app/views/templates/header.php
-<li class="nav-item <?= menuOpen(['user', 'kategoribuku']); ?>">
-	<a href="#" class="nav-link <?= menuActive(['user', 'kategoribuku']); ?>">
+<li class="nav-item <?= menuOpen(['user', 'kategoribuku', 'buku']); ?>">
+            <a href="#" class="nav-link <?= menuActive(['user', 'kategoribuku', 'buku']); ?>">
 ```
 Masih didalam scope data, tambahkan syntaks berikut dan letakan setelah menu kategori buku
 ```
