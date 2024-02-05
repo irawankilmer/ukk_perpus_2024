@@ -18,7 +18,7 @@ Catatan : Memasukan username atau email yang sudah terdaftar di database akan me
 Kalau formulir sudah di isi dengan lengkap, silahkan klik tombol daftar seperti yang ditunjukan lingkaran satu pada gambar diatas. Kalau sudah berhasil, silahkan login menggunakan data yang baru saja didaftarkan. Untuk mengakses halaman login, silahkan klik link "Sudah punya akun?" seperti yang ditunjukan oleh lingkaran 2 pada gambar diatas.
 ![](https://github.com/irawankilmer/ukk_perpus_2024/blob/step-8/img/83.PNG) <br>
 Jika sudah masuk kehalaman home seperti gambar diatas, sejauh ini kalian sudah berhasil login menggunakan akun dengan role peminjam.<br>
-Coba perhatikan pada menu sidebar diatas, jika sebelumnya login menggunakan akun administrator terlihat menu data, maka fitur data tersebut akan disembunyikan ketika yang login peminjam. Inilah yang disebut hak akses. <br>
+Coba perhatikan pada menu sidebar diatas, jika sebelumnya login menggunakan akun administrator terlihat menu data, maka fitur data tersebut akan disembunyikan ketika yang login adalah akun dengan role peminjam. Inilah yang disebut hak akses. <br>
 Untuk memastikan fitur hak akses sudah berjalan dengan benar, silahkan logout kemudian login kembali menggunakan akun administrator, lihat dibagian sidebar apakah ada menu data?.<br>
 Ok lanjut, silahkan logout kemudian login lagi menggunakan akun peminjam yang didaftarkan diatas.
 ## 2. Menambahkan menu perpustakaan
