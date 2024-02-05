@@ -340,5 +340,5 @@ Selamat, pembuatan sistem ulasan sudah berhasil.
 ### NOTE :
 #### - Jika masih ada error silahkan tanyakan ke guru pembimbing
 #### - Tulis hanya code yang belum terdapat pada file yang akan di edit saja, jangan ditulis ulang semuanya
-[Kembali ke step 6](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-7) | 
-[Lanjut ke step 8](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-9)
+[Kembali ke step 7](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-7) | 
+[Lanjut ke step 9](https://github.com/irawankilmer/ukk_perpus_2024/tree/step-9)
