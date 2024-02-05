@@ -418,7 +418,7 @@ class LoginController extends Controller
 #### 11. Sebelum login buat user baru dengan cara klik tombol belum punya akun ? dibagian bawah pada halaman login
 Yang register disini di khususkan untuk role peminjam saja
 #### 12. Jika pendaftaran sudah berhasil, silahkan coba login menggunakan username dan password yang baru didaftarkan
-jangan memasukan username dan email yang sudah terdaftar di database, itu akan mengakibatkan error. karena keterbatasan waktu, saya belum sempat menambahkan fitur untuk menangani masalah tersebut. Bisa dicoba oleh kalian secara mandiri dengan melihat semua materi yang sudah dipelajari di kelas<br>
+Pada saat registrasi jangan memasukan username dan email yang sudah terdaftar di database, itu akan mengakibatkan error. karena keterbatasan waktu, saya belum sempat menambahkan fitur untuk menangani masalah tersebut. Bisa dicoba oleh kalian secara mandiri dengan melihat semua materi yang sudah dipelajari di kelas<br>
 #### 13. jika berhasil, maka akan diarahkan ke halaman home, yang link nya terlihat seperti berikut http://localhost/ukk_perpus_albi/
 Pada halaman home tidak akan ada response apapun, tidak masalah, nanti kita perbaiki.
 #### 14. Untuk mencoba fitur logout, di url silahkan arahkan ke halaman berikut http://localhost/ukk_perpus_albi/login/logout
