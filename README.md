@@ -55,9 +55,9 @@ class PeminjamController extends Controller
 }
 ```
 ### 3. Model
-Sekarang, didalam folder models buka file Peminjam.php, lalu tambahkan method() berikut (Tempatkan sebelum penutup class)
+Sekarang, didalam folder models buka file Peminjaman.php, lalu tambahkan method() berikut (Tempatkan sebelum penutup class)
 ```
-/app/models/Peminjam.php
+/app/models/Peminjaman.php
 public function get()
   {
     $id = $_SESSION['UserID'];
